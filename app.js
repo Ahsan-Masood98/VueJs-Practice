@@ -1,25 +1,32 @@
 const app = Vue.createApp({
     data() {
         return {
-            courseGoal: 'Learn Vue!',
-            courseGoalA: 'Finish the course and learn Vue!',
-            courseGoalB: 'Finish the course and Master Vue!',
-            htmlCourseGoal: '<h1>Master Vue!</h1>',
-            vueLink: "https://vuejs.org/"
+            counter: 0,
+            name: '',
+            confirmedName: '',
         };
     },
     methods: {
-        outputGoal() {
-            const randomNumber = Math.random();
-            if(randomNumber < 0.5){
-                return this.courseGoalA;
-            } else {
-                return this.courseGoalB;
-            }
+        add(num) {
+            this.counter = this.counter + num;
         },
-        outputHtmlGoal() {
-            return this.htmlCourseGoal;
-        }
-    },
+        reduce() {
+            this.counter--;
+        },
+        setName(event, lastName = '') {
+            this.name = event.target.value + ' ' + lastName;
+        },
+        confirmedInput(){
+            this.confirmedName = this.name
+        },
+        submitFormWithoutModifier(event) {
+            // without event modifier we have to prevent default behaviour by ourselve
+            event.preventDefault();
+            alert('Submitted  Without Event Modifier!')
+        },
+        submitFormWithModifier() {
+            alert('Submitted With Event Modifier!')
+        },
+    }
 });
-app.mount('#user-goal');
+app.mount('#events');
