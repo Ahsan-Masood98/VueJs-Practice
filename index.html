@@ -20,41 +20,14 @@
       <h2>Events in Action</h2>
       <!-- v-bind directive is used for setting the value of an element -->
       <!-- v-on directive is used for listening to events like click event -->
-      <button v-on:click="counter++">Add by 1</button>
-      <button v-on:click="add(5)">Add by 5</button>
-      <button v-on:click="reduce">Remove</button>
-      <button v-on:click="counter = 0">Reset</button>
-      <!-- v-once used to preserve the initial state so it can not change -->
-      <p v-once>Starting Counter: {{ counter }}</p>
-      <p>Result: {{ counter }}</p>
-      <div>Whatever you write</div>
-      <!-- v-on:keyup looks for keyboard key press and only works when the presed key is released -->
-      <!-- v-on:keyup.enter looks for keyboard enter key press  -->
-      <input
-        type="text"
-        v-on:input="setName"
-        v-on:keyup.enter="confirmedInput"
-      />
-      <!-- if you want to have both browser given event as an argument and your own argument as well -->
-      <!-- $event is a reserved word-->
-      <div>Whatever you write + your last Name</div>
-      <input type="text" v-on:input="setName($event, 'Masood')" />
-      <p>Your Name: {{name}}</p>
-      <p>Your Confirmed Name: {{confirmedName}}</p>
+      <h3>Input with Data & Event Binding using v-bind and v-on directive</h3>
+      <input type="text" v-bind:value="myName" v-on:input="setMyName">
+      <button v-on:click="resetInput">Reset input</button>
 
-      <!-- Without Event Modifiers -->
-      <div>Form Submission Without Event Modifier</div>
-      <form v-on:submit="submitFormWithoutModifier" action="">
-        <input type="text" name="" id="" />
-        <button>Sign Up</button>
-      </form>
-      <br />
-      <!-- With Event Modifiers -->
-      <div>Form Submission With Event Modifier</div>
-      <form v-on:submit.prevent="submitFormWithModifier" action="">
-        <input type="text" name="" id="" />
-        <button>Sign Up</button>
-      </form>
+      <h3>Input with 2 way Binding using v-model directive</h3>
+      <input type="text" v-model="myName">
+      <button v-on:click="resetInput">Reset input</button>
+      <p>Your Name: {{myName}}</p>
     </section>
   </body>
-</html>
+  </html>
