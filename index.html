@@ -20,14 +20,17 @@
       <h2>Events in Action</h2>
       <!-- v-bind directive is used for setting the value of an element -->
       <!-- v-on directive is used for listening to events like click event -->
-      <h3>Input with Data & Event Binding using v-bind and v-on directive</h3>
-      <input type="text" v-bind:value="myName" v-on:input="setMyName">
-      <button v-on:click="resetInput">Reset input</button>
-
+      <button v-on:click="counter++">Increment</button>
+      <button v-on:click="counter--">Decrement</button>
+      <h2>Counter: {{counter}}</h2>
+    
       <h3>Input with 2 way Binding using v-model directive</h3>
-      <input type="text" v-model="myName">
+      <input type="text" v-model="myName" placeholder="write your first name">
       <button v-on:click="resetInput">Reset input</button>
-      <p>Your Name: {{myName}}</p>
+      <!-- we will use it like data property not like method [fulname()] -->
+      <!-- we dont call it we just point at it vue will call it for us -->
+      <!-- when it gets to fullname it will check if there is any fullname data property if not then vue will check if there is any computed property if yes than it will call that function and compute the value and it will only run again if the dependency in it changes in our example myName data property -->
+      <p>Your Full Name: {{fullname}}</p>
     </section>
   </body>
   </html>
