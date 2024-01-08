@@ -20,6 +20,12 @@
       <h2>My Course Goal</h2>
       <!-- Interpolation through javascript we are binding the data -->
       <p>{{ courseGoal }}</p>
+      <!-- using methods -->
+      <p>{{ outputGoal() }}</p>
+      <!-- v-bind to bind data with html code -->
+      <p>Learn more <a v-bind:href="vueLink">about Vue</a></p>
+      <!-- v-html directive tells vue that there will be some html written in it -->
+      <p v-html="outputHtmlGoal()"></p>
     </section>
   </body>
 </html>
