@@ -5,6 +5,15 @@ const app = Vue.createApp({
             myName: '',
         };
     },
+    watch: {
+        // watchers only run on data properties and have prev and new value as function args
+        // its useful to use them instead computed when you want to do something when certain conditions met by the data property 
+        counter(value){
+            if(value>50){
+                this.counter =0
+            }
+        },
+    },
     computed: {
         // we will use it like data property not like method [fulname()]
         fullname() {
@@ -16,6 +25,9 @@ const app = Vue.createApp({
         },
     },
     methods: {
+        add(num){
+            this.counter = this.counter + num;
+        },
         setMyName(event) {
             this.myName = event.target.value;
         },
