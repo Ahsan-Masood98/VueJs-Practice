@@ -5,24 +5,27 @@ const app = Vue.createApp({
             boxBSelected: false,
             boxCSelected: false,
             boxDSelected: false,
+            boxESelected: false,
         };
+    },
+    computed:{
+        boxEClasses() {
+            return { active: this.boxESelected};
+        }
     },
     methods: {
         boxSelected(box) {
-            console.log(box);
             if (box === 'A') {
-                console.log("in A");
                 this.boxASelected = !this.boxASelected;
-                console.log(this.boxASelected);
             } else if (box === 'B') {
-                console.log("in B");
                 this.boxBSelected = !this.boxBSelected;
             } else if (box === 'C') {
-                console.log("in C");
                 this.boxCSelected = !this.boxCSelected;
             } else if (box === 'D') {
-                console.log("in D");
                 this.boxDSelected = !this.boxDSelected;
+            } else if (box === 'E') {
+                this.boxESelected = !this.boxESelected;
+                console.log(this.boxESelected)
             }
         },        
     }
