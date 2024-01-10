@@ -18,11 +18,33 @@
     </header>
     <section id="user-goals">
       <h2>My course goals</h2>
-      <input type="text" v-model="enterdGoalValue"/>
+      <input type="text" v-model="enterdGoalValue" />
       <button @click="addGoal">Add Goal</button>
-      <p v-show="goals.length === 0">No goals have been added yet - please start adding some!</p>
-      <ul v-show="goals.length > 0">
-        <li>Goal</li>
+      <p v-if="goals.length === 0">
+        No goals have been added yet - please start adding some!
+      </p>
+      <ul v-else>
+        <!-- v-for on array -->
+        <!-- <li v-for="goal in goals">{{ goal }}</li> -->
+        <!-- we can also get indexs in for loop-->
+        <li
+          v-for="(goal, index) in goals"
+          :key="goal"
+          @click="removeGoal(index)"
+        >
+          {{ goal }} - {{index}}
+          <!-- @click.stop will stop from tringering the parent elemnts event -->
+          <input type="text" @click.stop />
+        </li>
+      </ul>
+      <ul>
+        <!-- v-for on objects -->
+        <!-- <li v-for="value in {name: 'Ahsan', age:25}">{{ value }}</li> -->
+
+        <!-- <li v-for="(value, key) in {name: 'Ahsan', age:25}"> {{key}}: {{ value }}</li> -->
+      </ul>
+      <ul>
+        <!-- <li v-for="num in 10">{{ num }}</li> -->
       </ul>
     </section>
   </body>
