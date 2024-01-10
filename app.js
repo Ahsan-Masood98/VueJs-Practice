@@ -1,39 +1,30 @@
 const app = Vue.createApp({
     data() {
         return {
-            counter: 0,
-            myName: '',
+            boxASelected: false,
+            boxBSelected: false,
+            boxCSelected: false,
+            boxDSelected: false,
         };
     },
-    watch: {
-        // watchers only run on data properties and have prev and new value as function args
-        // its useful to use them instead computed when you want to do something when certain conditions met by the data property 
-        counter(value){
-            if(value>50){
-                this.counter =0
-            }
-        },
-    },
-    computed: {
-        // we will use it like data property not like method [fulname()]
-        fullname() {
-            console.log('Running Again...');
-            if (this.myName === '') {
-                return "";
-            }
-            return this.myName + ' ' + "Masood"
-        },
-    },
     methods: {
-        add(num){
-            this.counter = this.counter + num;
-        },
-        setMyName(event) {
-            this.myName = event.target.value;
-        },
-        resetInput() {
-            this.myName = '';
-        }
+        boxSelected(box) {
+            console.log(box);
+            if (box === 'A') {
+                console.log("in A");
+                this.boxASelected = !this.boxASelected;
+                console.log(this.boxASelected);
+            } else if (box === 'B') {
+                console.log("in B");
+                this.boxBSelected = !this.boxBSelected;
+            } else if (box === 'C') {
+                console.log("in C");
+                this.boxCSelected = !this.boxCSelected;
+            } else if (box === 'D') {
+                console.log("in D");
+                this.boxDSelected = !this.boxDSelected;
+            }
+        },        
     }
 })
-app.mount('#events');
+app.mount('#styling')

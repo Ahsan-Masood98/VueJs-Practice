@@ -9,29 +9,23 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
     <script src="app.js" defer></script>
   </head>
   <body>
     <header>
-      <h1>Vue Events</h1>
+      <h1>Vue Dynamic Styling</h1>
     </header>
-    <section id="events">
-      <h2>Events in Action</h2>
-      <!-- v-bind directive is used for setting the value of an element -->
-      <!-- v-on directive is used for listening to events like click event -->
-      <button v-on:click="counter++">Increment</button>
-      <button v-on:click="add(10)">Increment by 10</button>
-      <button v-on:click="counter--">Decrement</button>
-      <h2>Counter: {{counter}}</h2>
-    
-      <h3>Input with 2 way Binding using v-model directive</h3>
-      <input type="text" v-model="myName" placeholder="write your first name">
-      <button v-on:click="resetInput">Reset input</button>
-      <!-- we will use it like data property not like method [fulname()] -->
-      <!-- we dont call it we just point at it vue will call it for us -->
-      <!-- when it gets to fullname it will check if there is any fullname data property if not then vue will check if there is any computed property if yes than it will call that function and compute the value and it will only run again if the dependency in it changes in our example myName data property -->
-      <p>Your Full Name: {{fullname}}</p>
+    <section id="styling">
+      <div
+        class="demo"
+        :style="{borderColor: boxASelected ? 'red' : '#ccc' }"
+        @click="boxSelected('A')"
+      >A</div>
+      <!-- Adding Class dynamicaly -->
+      <div :class="boxBSelected ? 'demo active' : 'demo'" @click="boxSelected('B')">B</div>
+      <div :class="{demo: true, active: boxCSelected}" @click="boxSelected('C')">C</div>
+      <div class="demo" :class="{active: boxDSelected}" @click="boxSelected('D')">D</div>
     </section>
   </body>
-  </html>
+</html>
