@@ -16,10 +16,17 @@
     <header>
       <h1>Vue Course Goals</h1>
     </header>
-    <section id="user-goal">
-      <h2>My Course Goal</h2>
-      <!-- Interpolation through javascript we are binding the data -->
-      <p>{{ courseGoal }}</p>
+    <section id="user-goals">
+      <h2>My course goals</h2>
+      <input type="text" v-model="enterdGoalValue"/>
+      <button @click="addGoal">Add Goal</button>
+      <!-- we can use any expression in v-if wich returns truthy or falsy value -->
+      <p v-if="goals.length === 0">No goals have been added yet - please start adding some!</p>
+      <p v-esle-if="goals.length < 0">...</p>
+      <!-- we can only use v-else if its right after v-if if we have any other element in between it will nit work -->
+      <ul v-else>
+        <li>Goal</li>
+      </ul>
     </section>
   </body>
 </html>
