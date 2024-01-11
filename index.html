@@ -14,23 +14,15 @@
   </head>
   <body>
     <header>
-      <h1>Vue Dynamic Styling</h1>
+      <h1>Refs in Vue</h1>
     </header>
-    <section id="styling">
-      <!-- Adding Css Dynamically -->
-      <div
-        class="demo"
-        :style="{borderColor: boxASelected ? 'red' : '#ccc' }"
-        @click="boxSelected('A')"
-      >A</div>
-      <!-- Adding Class dynamically and its Different ways -->
-      <div :class="boxBSelected ? 'demo active' : 'demo'" @click="boxSelected('B')">B</div>
-      <div :class="{demo: true, active: boxCSelected}" @click="boxSelected('C')">C</div>
-      <div class="demo" :class="{active: boxDSelected}" @click="boxSelected('D')">D</div>
-      <!-- you can add classes like this seperately -->
-      <div class="demo" :class="boxEClasses" @click="boxSelected('E')">E</div>
-      <!-- or combine the different classes in an array -->
-      <div :class="['demo', boxEClasses]" @click="boxSelected('E')">E</div>
+    <section id="app">
+      <h2>How Vue Works</h2>
+      <!-- ref is a pointer wich saves the info about this specific element -->
+      <!-- with ref only when the set text button clicks only then the value will be logged not like v-model or v-on:input which logged the value on every key stroke  -->
+      <input type="text" ref="userText">
+      <button @click="setText">Set Text</button>
+      <p>{{ message }}</p>
     </section>
   </body>
 </html>

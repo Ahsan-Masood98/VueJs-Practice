@@ -1,33 +1,18 @@
 const app = Vue.createApp({
     data() {
         return {
-            boxASelected: false,
-            boxBSelected: false,
-            boxCSelected: false,
-            boxDSelected: false,
-            boxESelected: false,
+            currentUserInput: '',
+            message: 'Vue is great!',
         };
     },
-    computed:{
-        boxEClasses() {
-            return { active: this.boxESelected};
-        }
-    },
     methods: {
-        boxSelected(box) {
-            if (box === 'A') {
-                this.boxASelected = !this.boxASelected;
-            } else if (box === 'B') {
-                this.boxBSelected = !this.boxBSelected;
-            } else if (box === 'C') {
-                this.boxCSelected = !this.boxCSelected;
-            } else if (box === 'D') {
-                this.boxDSelected = !this.boxDSelected;
-            } else if (box === 'E') {
-                this.boxESelected = !this.boxESelected;
-                console.log(this.boxESelected)
-            }
-        },        
-    }
-})
-app.mount('#styling')
+        setText() {
+            // this.message = this.currentUserInput;
+            // $ sign varibles like $ref tells us that this is vue specific not default javascript.
+            // this.$refs.userText will have an object containing all the info about that specific html element
+            this.message = this.$refs.userText.value;
+        },
+    },
+});
+
+app.mount('#app');
