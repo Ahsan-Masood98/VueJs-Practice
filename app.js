@@ -97,7 +97,6 @@ const app = Vue.createApp({
                 actionType: what,
                 actionValue: value,
             });
-            console.log(this.logMessages);
         }
     }
 });
