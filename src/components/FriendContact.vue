@@ -1,8 +1,10 @@
 <template>
   <li>
-    <h2>{{ name }} {{ friendIsFavorite ? '(Favorite)' : ''}}</h2>
+    <h2>{{ name }} {{ isFavorite ? "(Favorite)" : "" }}</h2>
     <button @click="toggleFavorite">Toggle Favorite</button>
-    <button @click="toggleDetails">{{ detailsAreVisible ? 'Hide' : 'Show' }} Details</button>
+    <button @click="toggleDetails">
+      {{ detailsAreVisible ? "Hide" : "Show" }} Details
+    </button>
     <ul v-if="detailsAreVisible">
       <li>
         <strong>Phone:</strong>
@@ -20,6 +22,10 @@
 export default {
   // props: ['name', 'phoneNumber', 'emailAddress', 'isFavorite'],
   props: {
+    id: {
+      type : String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -36,15 +42,11 @@ export default {
       type: Boolean,
       required: false,
       default: false,
-      // validator: function(value) {
-      //   return value === '1' || value === '0';
-      // }
     },
   },
   data() {
     return {
       detailsAreVisible: false,
-      friendIsFavorite: this.isFavorite,
     };
   },
   methods: {
@@ -52,7 +54,11 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible;
     },
     toggleFavorite() {
-      this.friendIsFavorite = !this.friendIsFavorite;
+      //emit will tell the parent that a certain event is emited in the child
+      // emit needs at least one arg which is name
+      // name of thet arg can only be written in kebap-case
+      // other args except first will acts as data send back by event
+      this.$emit('toggle-favourite', this.id);
     },
   },
 };
