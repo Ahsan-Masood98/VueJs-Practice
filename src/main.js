@@ -3,14 +3,17 @@ import { createRouter, createWebHistory } from "vue-router";
 import App from './App.vue';
 import TeamsList from './components/teams/TeamsList.vue';
 import UsersList from './components/users/UsersList.vue';
+import NotFound from './components/nav/NotFound.vue';
 import TeamMembers from './components/teams/TeamMembers.vue';
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/teams', component: TeamsList },
+        { path: '/', redirect: '/teams' }, // we can use alias instead if redirect
+        { path: '/teams', component: TeamsList, alias: '/' },
         { path: '/users', component: UsersList },
-        { path: "/teams/:teamId", component: TeamMembers, props:true },
+        { path: '/teams/:teamId', component: TeamMembers, props: true },
+        { path: '/:notFound(.*)', component: NotFound },
     ],
     linkActiveClass: "active", // for making a custom class rather then router-link-active
 })
