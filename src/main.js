@@ -30,9 +30,14 @@ const router = createRouter({
             ]
         },
         {
-            path: '/users', components: {
+            path: '/users',
+            components: {
                 default: UsersList,
                 footer: UsersFooter,
+            },
+            beforeEnter: (_, _2, next) => {
+                console.log("User BeforeEnter")
+                next();
             }
         },
         { path: '/:notFound(.*)', component: NotFound },
@@ -42,7 +47,7 @@ const router = createRouter({
     scrollBehavior(_, _2, savedPosition) { // _, _2 tells that there are 2 args which we are not using but are there
         // console.log("to", to);
         // console.log("from", from);
-        console.log("savedPosition", savedPosition);
+        // console.log("savedPosition", savedPosition);
         if (savedPosition) {
             return savedPosition;
         }
@@ -52,9 +57,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     // to and from are both route objects. must call `next`.
-    console.log("Gloabal BeaforeEach")
-    console.log("to", to);
-    console.log("from", from);
+    console.log("Gloabal BeforeEach")
+    // console.log("to", to);
+    // console.log("from", from);
     next(); // to allow all
     // next(false); // to disallow all routes 
 
