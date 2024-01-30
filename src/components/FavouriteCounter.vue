@@ -1,5 +1,5 @@
 <template>
-    <h3> {{ counter }} </h3>
+    <h3>Normalized: {{ counter }} </h3>
     <p>And More ....</p>
 </template>
 

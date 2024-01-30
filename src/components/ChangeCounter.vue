@@ -1,5 +1,5 @@
 <template>
-  <button @click="inc">Add 1</button>
+  <button @click="incAsync">Add 1 Asyncronously</button>
   <button @click="incrs({ value: 11 })">Add 11</button>
 </template>
 
@@ -12,7 +12,7 @@ export default {
     // }
     // ...mapActions(["increment", "increase"]),
     ...mapActions({
-      inc: "increment",
+      incAsync: "increment",
       incrs: "increase",
     }),
   },
