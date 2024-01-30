@@ -17,27 +17,54 @@ const router = createRouter({
             path: '/teams',
             name: 'teams',
             components: {
-                default: TeamsList, footer: TeamsFooter,
+                default: TeamsList,
+                footer: TeamsFooter,
             },
             children: [
-                { name: "team-members", path: ':teamId', component: TeamMembers, props: true },
-
+                {
+                    name: "team-members",
+                    path: ':teamId',
+                    component: TeamMembers,
+                    props: true
+                },
             ]
         },
-        { path: '/users', components: { default: UsersList, footer: UsersFooter, } },
+        {
+            path: '/users', components: {
+                default: UsersList,
+                footer: UsersFooter,
+            }
+        },
         { path: '/:notFound(.*)', component: NotFound },
     ],
     linkActiveClass: "active", // for making a custom class rather then router-link-active
-    scrollBehavior (to, from, savedPosition) {
-        console.log("to", to);
-        console.log("from", from);
+    // scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(_, _2, savedPosition) { // _, _2 tells that there are 2 args which we are not using but are there
+        // console.log("to", to);
+        // console.log("from", from);
         console.log("savedPosition", savedPosition);
-        if(savedPosition){
+        if (savedPosition) {
             return savedPosition;
         }
-        return {left: 0, top: 0};
+        return { left: 0, top: 0 };
     }
-})
+});
+
+router.beforeEach((to, from, next) => {
+    // to and from are both route objects. must call `next`.
+    console.log("Gloabal BeaforeEach")
+    console.log("to", to);
+    console.log("from", from);
+    next(); // to allow all
+    // next(false); // to disallow all routes 
+
+    // bellow code will redirect any other page the else section
+    // if (to.name === "team-members") {
+    //     next();
+    // } else {
+    //     next({ name: "team-members", params: { teamId: "t2" } });
+    // }
+});
 
 const app = createApp(App)
 
