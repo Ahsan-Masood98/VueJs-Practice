@@ -11,7 +11,14 @@ export default {
     //   this.$store.dispatch('increment')
     // }
     // ...mapActions(["increment", "increase"]),
-    ...mapActions({
+    // ...mapActions({
+    //   incAsync: "increment",
+    //   incrs: "increase",
+    // }),
+
+    // when accessing namespaced state
+    // ...mapActions("counter", ["increment", "increase"]),
+    ...mapActions("counter", {
       incAsync: "increment",
       incrs: "increase",
     }),

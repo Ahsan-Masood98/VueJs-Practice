@@ -32,11 +32,19 @@ export default {
   },
   methods: {
     addNumber() {
+      // without namespaced named state
       // this.$store.commit("increase", { value: 10 });
+      // this.$store.dispatch({
+      //   type: "increase",
+      //   value: 10,
+      // });
+      
+      // when accessing namespaced state
       this.$store.dispatch({
-        type: "increase",
+        type: "counter/increase",
         value: 10,
       });
+      
     },
   },
 };
