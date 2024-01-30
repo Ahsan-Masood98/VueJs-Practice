@@ -23,7 +23,10 @@ export default {
   methods: {
     confirmInput() {
       //do something
-      this.$router.push("/teams"); // push for programmatic navigation
+      // this.$router.push("/teams"); // push for programmatic navigation
+        this.$router.push ({
+        name: "teams",
+      })
     },
   },
 };

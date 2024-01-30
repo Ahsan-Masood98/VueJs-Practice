@@ -45,6 +45,7 @@ export default {
     // this hook will be called when the component is created
     // this.$route.path  // /teams/t1
     this.loadTeamMemebers(this.teamId);
+    console.log(this.$route.query);
   },
   watch: {
     teamId(newId) {
