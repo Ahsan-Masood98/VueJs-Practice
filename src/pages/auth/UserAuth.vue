@@ -1,22 +1,32 @@
 <template>
-  <form @submit.prevent="submitForm">
-    <base-card>
-      <div class="form-control">
-        <label for="email"> Email </label>
-        <input type="email" id="email" v-model.trim="email" />
-      </div>
-      <p v-if="!formIsValid">Invalid email</p>
-      <div class="form-control">
-        <label for="password"> Password </label>
-        <input type="password" id="password" v-model.trim="password" />
-      </div>
-      <p v-if="!formIsValid">Pasword must be of at least 6 charecters</p>
-      <base-button>{{submitButtonCaption}}</base-button>
-      <base-button type="button" mode="flat" @click="switchAuthMode"
-        >{{ switchModeButtonCaption }} instead</base-button
-      >
-    </base-card>
-  </form>
+  <div>
+    <base-dialog :show="!!error" title="Error occoured" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <base-dialog :show="isLoading" title="Authenticating..." fixed>
+      <base-spinner></base-spinner>
+    </base-dialog>
+    <form @submit.prevent="submitForm">
+      <base-card>
+        <div class="form-control">
+          <label for="email"> Email </label>
+          <input type="email" id="email" v-model.trim="email" />
+        </div>
+        <p v-if="!formIsValid"></p>
+        <div class="form-control">
+          <label for="password"> Password </label>
+          <input type="password" id="password" v-model.trim="password" />
+        </div>
+        <p v-if="!formIsValid">
+          Invalid email or pasword (Password must be of at least 6 charecters)
+        </p>
+        <base-button>{{ submitButtonCaption }}</base-button>
+        <base-button type="button" mode="flat" @click="switchAuthMode"
+          >{{ switchModeButtonCaption }} instead</base-button
+        >
+      </base-card>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -27,18 +37,20 @@ export default {
       password: "",
       formIsValid: true,
       mode: "login",
+      isLoading: false,
+      error: null,
     };
   },
   computed: {
     submitButtonCaption() {
-        return this.mode === "login" ? "Login" : "Signup"
+      return this.mode === "login" ? "Login" : "Signup";
     },
     switchModeButtonCaption() {
-        return this.mode === "login" ? "Signup" : "Login"
+      return this.mode === "login" ? "Signup" : "Login";
     },
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.formIsValid = true;
       if (
         this.email === "" ||
@@ -48,6 +60,22 @@ export default {
         this.formIsValid = false;
         return;
       }
+      this.isLoading = true;
+
+      try {
+        if (this.mode === "login") {
+          // ...
+        } else {
+          await this.$store.dispatch("signup", {
+            email: this.email,
+            password: this.password,
+          });
+        }
+      } catch (error) {
+        this.error = error.message || "Failed to authenticate";
+      }
+
+      this.isLoading = false;
     },
     switchAuthMode() {
       if (this.mode === "login") {
@@ -55,6 +83,9 @@ export default {
       } else {
         this.mode = "login";
       }
+    },
+    handleError() {
+      this.error = null;
     },
   },
 };
