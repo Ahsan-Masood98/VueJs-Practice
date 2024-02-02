@@ -1,13 +1,13 @@
 export default {
-    async login(context, payload) {
-        const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU5gzHcJcFBXOsFfoy2KFj5zjz5rQr93U", {
-            method: "POST",
-            body: JSON.stringify({
-                email: payload.email,
-                password: payload.password,
-                returnSecureToken: true,
-            })
-        });
+  async login(context, payload) {
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAU5gzHcJcFBXOsFfoy2KFj5zjz5rQr93U", {
+      method: "POST",
+      body: JSON.stringify({
+        email: payload.email,
+        password: payload.password,
+        returnSecureToken: true,
+      })
+    });
 
     const responseData = await response.json();
 
@@ -48,5 +48,12 @@ export default {
       userId: responseData.localId,
       tokenExpiration: responseData.expiresIn
     });
+  },
+  logout(context) {
+    context.commit('setUser', {
+      token: null,
+      userId: null,
+      tokenExpiration: null,
+    })
   }
 };
