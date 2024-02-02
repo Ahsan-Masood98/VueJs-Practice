@@ -29,7 +29,7 @@ const router = createRouter({
   ]
 });
 
-router.beforeEeach(function (to, _, next) {
+router.beforeEach((to, _, next) => {
   if(to.meta.requiresAuth && !store.getters.isAuthenticated){
     next('/auth');
   } else if(to.meta.requiresUnAuth && store.getters.isAuthenticated){
@@ -37,5 +37,6 @@ router.beforeEeach(function (to, _, next) {
   } else {
     next();
   }
-})
+});
+
 export default router;
