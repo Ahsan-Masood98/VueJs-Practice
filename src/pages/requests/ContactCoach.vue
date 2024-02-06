@@ -41,12 +41,12 @@ export default {
         return;
       }
       const message = {
-        coachId: this.$route.id,
+        coachId: this.$route.params.id,
         email: this.email,
         message: this.message,
       };
       this.$store.dispatch("requests/contactCoach", message);
-    //   this.$router.replace("/coaches");
+      this.$router.replace("/coaches");
     },
   },
 };
