@@ -7,10 +7,24 @@
     <!-- transition must only contains one direct child not multiple -->
     <!-- sif you want to use totaly diferent class names than what vue provides like when you are using third-party animation library -->
     <!-- <transition enter-from-class= "some-class" enter-active-class="some-class"> -->
-    <transition name="para">
+    <transition
+      name="para"
+      @before-enter="beforeEnter"
+      @enter="eneterd"
+      @after-enter="afterEntered"
+      @before-leave="beforeLeave"
+      @leave = "leaved"
+      @after-leave="afterLeaved"
+    >
       <p v-if="paraIsVisible">This is only sometimes visible ...</p>
     </transition>
     <button @click="toggleParagraph">Animate</button>
+  </div>
+  <div class="container">
+    <transition name="fade-button" mode="out-in">
+      <button @click="showUsers" v-if="!usersAreVisible">Show Users</button>
+      <button @click="hideUsers" v-else>Hide Users</button>
+    </transition>
   </div>
   <base-modal @close="hideDialog" :open="dialogIsVisible">
     <p>This is a test dialog!</p>
@@ -28,9 +42,40 @@ export default {
       animatedBlock: false,
       dialogIsVisible: false,
       paraIsVisible: false,
+      usersAreVisible: false,
     };
   },
   methods: {
+    beforeEnter(element) {
+      // as the name suggest before enter
+      console.log("before enter", element);
+    },
+    eneterd(element) {
+      // here animation will start
+      console.log("enter", element);
+    },
+    afterEntered(element) {
+      // as the name suggest afterEntered animation will end
+      console.log("after Entered", element);
+    },
+    beforeLeave(element) {
+      // as the name suggest before leave
+      console.log("before leave", element);
+    },
+    leaved(element) {
+      // when leaving state
+      console.log("leaved", element);
+    },
+    afterLeaved(element) {
+      // as the name suggest afterLeaved animation will end
+      console.log("after Leaved", element);
+    },
+    showUsers() {
+      this.usersAreVisible = true;
+    },
+    hideUsers() {
+      this.usersAreVisible = false;
+    },
     animateBlock() {
       this.animatedBlock = true;
     },
@@ -116,6 +161,24 @@ button:active {
 .para-leave-to {
   opacity: 0;
   transform: translateY(30px);
+}
+
+.fade-button-enter-from,
+.fade-button-leave-to {
+  opacity: 0;
+}
+
+.fade-button-enter-active {
+  transition: opacity 0.3s ease-out;
+}
+
+.fade-button-leave-active {
+  transition: opacity 0.3s ease-in;
+}
+
+.fade-button-enter-to,
+.fade-button-leave-from {
+  opacity: 1;
 }
 
 @keyframes slide-scale {
