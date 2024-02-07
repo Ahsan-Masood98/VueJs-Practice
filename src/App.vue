@@ -13,8 +13,10 @@
       @enter="eneterd"
       @after-enter="afterEntered"
       @before-leave="beforeLeave"
-      @leave = "leaved"
+      @leave="leaved"
       @after-leave="afterLeaved"
+      @enter-cancelled="enterCancelled"
+      @leave-cancelled="leaveCancelled"
     >
       <p v-if="paraIsVisible">This is only sometimes visible ...</p>
     </transition>
@@ -43,16 +45,34 @@ export default {
       dialogIsVisible: false,
       paraIsVisible: false,
       usersAreVisible: false,
+      enterInterval: null,
+      leaveInterval: null,
     };
   },
   methods: {
+    enterCancelled() {
+      clearInterval(this.enterInterval);
+    },
+    leaveCancelled() {
+      clearInterval(this.leaveInterval);
+    },
     beforeEnter(element) {
       // as the name suggest before enter
       console.log("before enter", element);
+      element.style.opacity = 0;
     },
-    eneterd(element) {
+    eneterd(element, done) {
       // here animation will start
       console.log("enter", element);
+      let round = 1;
+      this.enterInterval = setInterval(() => {
+        element.style.opacity = round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.enterInterval);
+          done();
+        }
+      }, 20);
     },
     afterEntered(element) {
       // as the name suggest afterEntered animation will end
@@ -61,13 +81,22 @@ export default {
     beforeLeave(element) {
       // as the name suggest before leave
       console.log("before leave", element);
+      element.style.opacity = 1;
     },
-    leaved(element) {
+    leaved(element, done) {
       // when leaving state
       console.log("leaved", element);
+      let round = 1;
+      this.leaveInterval = setInterval(() => {
+        element.style.opacity = 1 - round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(this.leaveInterval);
+          done();
+        }
+      }, 20);
     },
     afterLeaved(element) {
-      // as the name suggest afterLeaved animation will end
       console.log("after Leaved", element);
     },
     showUsers() {
@@ -138,31 +167,6 @@ button:active {
   /* transform: translateX(-150px); */
   animation: slide-scale 0.3s ease-out forwards;
 }
-
-.para-enter-from {
-  opacity: 0;
-  transform: translateY(-30px);
-}
-.para-enter-to {
-  opacity: 1;
-  transform: translateY(0);
-}
-.para-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.para-leave-active {
-  transition: all 0.3s ease-in;
-}
-.para-leave-from {
-  opacity: 1;
-  transform: translateY(0);
-}
-.para-leave-to {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
 .fade-button-enter-from,
 .fade-button-leave-to {
   opacity: 0;
